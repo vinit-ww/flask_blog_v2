@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div ng-app="myApp" ng-controller="myCtrl" class="container">
+        <form ng-submit="myFunc()" method = "POST" enctype = "multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/> 
+            <input type = "file" name = "file" ng-model="file" />
+            <input type = "submit" class="btn btn-primary"/>
+        </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="{{ url_for('static', filename='js/upload.js') }}" type="text/javascript"> </script>
+{% endblock %}

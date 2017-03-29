@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    {% endblock %}
+  </head>
+  <body>
+        <nav class="navbar navbar-inverse">
+            <div class = "navbar-header">
+                <a class="navbar-brand" href="#">POSTER</a>
+                <ul class="nav navbar-nav">
+                        {% if current_user.is_authenticated %}
+                            <li class="active"><a href="#">Welcome {{ current_user.email.split('@')[0]}}</a></li>
+                            <li class="active"><a href= "{{url_for('new_post')}}" class="active">New Post</a></li>
+                            <!-- <li class="active"><a href="{{url_for('logout')}}">Logout</li> -->
+                            <li><a href="{{url_for('upload_image')}}">Upload</a></li>
+                        {% else %}
+                            <li class="active"><a href="{{url_for('login')}}">Login</a></li> 
+                            <li><a href="{{url_for('register')}}">Register</a></li>
+                        {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <div class = "container">
+                {% block flash%} 
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class= "alert alert-success">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                {% endblock %}
+                {% block content %}{% endblock %}
+        </div>
+    <!-- {% raw %}
+        <div ng-app="">
+          <p>Name : <input type="text" ng-model="name"></p>
+          <h1>Hello {{name}}</h1>
+        </div>
+    {% endraw %} -->
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <!--<script src="{{url_for('static', filename='js/test_controller.js') }}">  </script>-->
+    </body>
+</html>

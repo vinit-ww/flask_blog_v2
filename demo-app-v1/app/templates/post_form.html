@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{%block head%}
+{{super()}}
+<style type="text/css">
+    .container {
+        width: 500px;
+        clear: both;
+        border: 1px;
+    }
+    .container input {
+        width: 100%;
+        clear: both;
+    }
+    .post {
+        width: 500px;
+        position: relative;
+        left:190px;
+        clear: both;
+    }
+    
+</style>
+{%endblock%}
+{% block content %}
+    <div class = "col-md-3">
+      <h1 class="post">Post</h1>
+      <div ng-app="myApp" ng-controller="myCtrl" class="container">
+        <form ng-submit="myFunc()" method="POST" id="myForm">
+          {{form.csrf_token()}}<br>Title
+          <input type="text" ng-model="title"><br>Content
+          <input type="text" ng-model="content" >
+          Author<input type="text" ng-model="author" >
+          <br><br><input type="submit" class="btn btn-primary" style="height:30px;width:200px;position:relative;left:140px;">
+        </form>
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="{{ url_for('static', filename='js/form.js') }}" type="text/javascript"> </script>
+{% endblock %}  
